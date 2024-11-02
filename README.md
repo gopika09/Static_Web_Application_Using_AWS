@@ -77,19 +77,22 @@ This project demonstrates the deployment of a basic static web application on AW
    - Select the **JSON** tab and add the necessary permissions for DynamoDB access.
    - Save the policy to grant your Lambda function permission to interact with DynamoDB.
 
-**Inline Policy**
+**Inline Policy :**
 
+
+```json
 {
-	"Version": "2012-10-17",
-	"Statement": [
-		{
-			"Sid": "VisualEditor0",
-			"Effect": "Allow",
-			"Action": "dynamodb:PutItem",
-			"Resource": "arn:aws:dynamodb:ap-south-1:533267294631:table/table"
-		}
-	]
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": "dynamodb:PutItem",
+            "Resource": "arn:aws:dynamodb:ap-south-1:533267294631:table/table"
+        }
+    ]
 }
+```
 
 ### 6) Add Interactivity to the Web App
 
