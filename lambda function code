@@ -1,0 +1,60 @@
+import boto3
+import time
+import json
+import logging
+
+# Set up logging
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
+
+# Create a DynamoDB object using the AWS SDK
+dynamodb = boto3.resource('dynamodb')
+# Use the DynamoDB object to select our table
+table = dynamodb.Table('table')  # Ensure this matches your actual table name
+
+# Define the handler function that the Lambda service will use as an entry point
+def lambda_handler(event, context):
+    # Get the current GMT time
+    gmt_time = time.gmtime()    
+    # Format the GMT time string in a human-readable format
+    now = time.strftime('%a, %d %b %Y %H:%M:%S +0000', gmt_time)
+    
+    # Extract values from the event object we got from the Lambda service and store in variables
+    name = event.get('name')
+    phone = event.get('phone')
+    email = event.get('email')
+    
+    # Log the extracted values
+    logger.info(f"Received data - Name: {name}, Phone: {phone}, Email: {email}")
+
+    # Check if any required field is missing
+    if not name or not phone or not email:
+        logger.error("Missing name, phone, or email.")
+        return {
+            'statusCode': 400,
+            'body': json.dumps('Error: Missing name, phone, or email.')
+        }
+
+    # Write name, phone, email, and time to the DynamoDB table
+    try:
+        response = table.put_item(
+            Item={
+                'item': name,  # Using 'item' as the primary key
+                'Phone': phone,
+                'Email': email,
+                'LatestUpdateTime': now
+            }
+        )
+        logger.info(f"DynamoDB response: {response}")
+    except Exception as e:
+        logger.error(f"Error storing data: {e}")
+        return {
+            'statusCode': 500,
+            'body': json.dumps(f'Error: {str(e)}')
+        }
+
+    # Return a properly formatted JSON object
+    return {
+        'statusCode': 200,
+        'body': json.dumps('Successfully stored data')
+    }
