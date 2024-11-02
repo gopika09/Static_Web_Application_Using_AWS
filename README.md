@@ -4,6 +4,8 @@ This project demonstrates the deployment of a basic static web application on AW
 
 ## Overview :
 
+![diagram](https://github.com/gopika09/Static_Web_Application_Using_AWS/blob/main/images/overview.png)
+
 ## Features :
 
 - **Serverless Architecture**: Utilizes AWS Amplify, API Gateway, and Lambda for a fully managed serverless stack.
@@ -98,6 +100,16 @@ This project demonstrates the deployment of a basic static web application on AW
 
 1. Update `index.html` file to include the API endpoint URL for interactivity.
 2. This link will enable the front end to communicate with the Lambda function via API Gateway, allowing users to interact with backend services.
+
+### Results :
+
+Application level:
+
+![diagram](https://github.com/gopika09/Static_Web_Application_Using_AWS/blob/main/images/success%20data.png)
+
+Database level:
+
+![diagram](https://github.com/gopika09/Static_Web_Application_Using_AWS/blob/main/images/table%20data.png)
 
 ## Conclusion :
 
